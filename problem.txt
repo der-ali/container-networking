@@ -1,0 +1,10 @@
+agrant@node01:/vagrant$ sudo ip netns exec con1 tcpdump -l -n -nn -vvv -i any port 1111
+tcpdump: data link type LINUX_SLL2
+tcpdump: listening on any, link-type LINUX_SLL2 (Linux cooked v2), snapshot length 262144 bytes
+16:02:17.633509 veth11 P   IP (tos 0x0, ttl 64, id 11592, offset 0, flags [DF], proto UDP (17), length 34)
+    172.16.0.1.33800 > 172.16.0.2.1111: [bad udp cksum 0xbd67 -> 0xbc67!] UDP, length 6
+
+* tcpdump shows bad checksum, nc is not recieving the udp package
+
+* `sudo cat /sys/kernel/debug/tracing/trace_pipe` show udp checksum `ffbf` whereas tcpdump shows [bad udp cksum `0xbfff` -> 0x3f00!]
+

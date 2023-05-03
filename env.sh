@@ -1,0 +1,27 @@
+export CON1="con1"
+export CON2="con2"
+export HOSTNAME=$(hostname)
+export INTERFACE="eth1"
+if [ $(hostname) == "node01" ]; then 
+  export  NODE_IP="10.0.0.10"
+  export  BRIDGE_SUBNET="172.16.0.0/24"
+  export  BRIDGE_IP="172.16.0.1"
+  export  IP1="172.16.0.2"
+  export  IP2="172.16.0.3"
+  export  TO_NODE_IP="10.0.0.20"
+  export  TO_BRIDGE_SUBNET="172.16.1.0/24"
+  export  TO_BRIDGE_IP="172.16.1.1"
+  export  TO_IP1="172.16.1.2"
+  export  TO_IP2="172.16.1.3"
+else
+  export  NODE_IP="10.0.0.20"
+  export  BRIDGE_SUBNET="172.16.1.0/24"
+  export  BRIDGE_IP="172.16.1.1"
+  export  IP1="172.16.1.2"
+  export  IP2="172.16.1.3"
+  export  TO_NODE_IP="10.0.0.10"
+  export  TO_BRIDGE_SUBNET="172.16.0.0/24"
+  export  TO_BRIDGE_IP="172.16.0.1"
+  export  TO_IP1="172.16.0.2"
+  export  TO_IP2="172.16.0.3"
+fi
