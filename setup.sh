@@ -1,15 +1,13 @@
 #!/bin/bash -e 
 
 . env.sh
-if [[ $# -lt 2 ]] ; then
+if [[ $# -lt 1 ]] ; then
     echo 'routing type is missing!'
-    echo 'please provide routing type (host or bgp) and NAT type (iptables or ebpf)'
     exit 0
 fi
 
 ROUTING_PROTO=$1
 NAT=$2
-
 
 echo "Creating the namespaces"
 sudo ip netns add $CON1
@@ -76,13 +74,4 @@ echo "Setup iptable rules"
 #sudo iptables --append FORWARD --in-interface eth1 --out-interface veth21 --jump ACCEPT
 #sudo iptables --append FORWARD --in-interface veth11 --out-interface eth1 --jump ACCEPT
 #sudo iptables --append FORWARD --in-interface veth21 --out-interface eth1 --jump ACCEPT
-sudo iptables --append POSTROUTING --table nat --out-interface eth1 --jump MASQUERADE
-
-
-if [ $NAT == "iptables" ];then
-	echo "Setting up NAT rule with iptables for the udp server on port 1111"
-	sudo iptables -t nat -A PREROUTING -i $INTERFACE -p udp -d $NODE_IP --dport 1111 -j DNAT --to-destination $IP1:1111
-elif [ $NAT == "ebpf" ];then
-	echo "Setting up NAT rule with ebpf xdp for the udp server on port 1111"
-	sudo ./ebpf-xdp -bip $BRIDGE_IP -cip $IP1 -cmac c2:39:ed:47:ea:c4 -dif br0 -sif eth1 -sip $NODE_IP
-fi
+sudo iptables --append POSTROUTING --table nat --out-interface $INTERFACE --jump MASQUERADE
