@@ -15,10 +15,12 @@ setup_bgp:
 test_routing:
 	vagrant ssh node02 -c 'cd /vagrant ; ./test.sh'
 	vagrant ssh node01 -c 'cd /vagrant ; ./test.sh'
-test_udp_server:
-	vagrant ssh node01 -c 'cd /vagrant ; ./start-server.sh'
+test_udp_server_ebpf:
+	vagrant ssh node01 -c 'cd /vagrant ; ./start-udp-server.sh ebpf'
+test_udp_server_iptables:
+	vagrant ssh node01 -c 'cd /vagrant ; ./start-udp-server.sh iptables'
 test_udp_client:	
-	vagrant ssh node02 -c 'cd /vagrant ; ./start-client.sh'
+	vagrant ssh node02 -c 'cd /vagrant ; ./start-udp-client.sh'
 teardown:
 	rm -rf teardown-1.complete teardown-2.complete
 	vagrant ssh node01 -c 'cd /vagrant ; ./teardown.sh > teardown-1.log ; touch teardown-1.complete' &
