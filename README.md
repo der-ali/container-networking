@@ -32,16 +32,16 @@ To test UDP server under NAT using **iptables**:
 <img src="./README.assets/image-20230503172932019.png" alt="image-20230503172932019" style="zoom:50%;" />
 
 ```
-make test_iptables_udp_server # on one tab
-make test_iptables_udp_client # on other tab
+make test_udp_server_iptables # on one tab
+make test_udp_client # on other tab
 ```
 
 To test UDP server under NAT using **ebpf**:
 <img src="./README.assets/image-20230503172739830.png" alt="image-20230503172739830" style="zoom:50%;" />
 
 ```
-make test_ebpf_udp_server # on one tab
-make test_ebpf_udp_client # on other tab
+make test_udp_server_ebpf # on one tab
+make test_udp_client # on other tab
 ```
 
 
@@ -56,3 +56,5 @@ To destroy the vagrant setup
 ```
 vagrant -f destroy
 ```
+
+This project is based on work done by  [Shane Utt](https://github.com/shaneutt/ebpf-xdp-golang-redirect-demo/tree/main)  and [Kristen Jacobs.](https://github.com/kristenjacobs/container-networking)
